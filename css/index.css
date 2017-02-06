@@ -14,7 +14,23 @@ h1, h2, h3 {
 	margin-top: 20px;
 	line-height: 1.1;
 }
-
+body {
+	background: #dfdfdf;
+	min-width: 1000px;
+}
+.session {
+	padding: 45px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 2px;
+	background: white;
+	margin-bottom: 45px;
+	text-align: center;
+}
+.session-title {
+	margin-top: 0;
+	margin-bottom: 45px;
+	font-size: 24px;
+}
 #header {
 	color: white;
 	text-align: center;
@@ -96,4 +112,81 @@ h1, h2, h3 {
 }
 #header .nav-list>li:hover {
 	color: white;
+}
+#main {
+	width: 970px;
+	margin: 0 auto;
+	padding: 60px 15px;
+}
+#main .basic-info {
+	text-align: left;
+	padding-left: 310px;
+	line-height: 1.5;
+}
+#main .basic-info span {
+	display: inline-block;
+	margin: 0 5px;
+}
+#main .basic-info span:nth-child(2) {
+	width: 100px;
+}
+#main .basic-info span:nth-child(1) {
+	color: rgb(0,188,212);
+}
+#main .basic-info a {
+	color: #007888;
+}
+#main .expr .item {
+	position: relative;
+	border-left: 3px solid #00BCD4;
+	margin-left: 100px;
+	padding: 0 100px 20px 40px;
+	z-index: 0;
+	text-align: left;
+}
+#main .expr .item:before {
+	position: absolute;
+	content: "";
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+    border: 3px solid #00BCD4;
+    top: 0px;
+    left: -12px;
+    z-index: 10;
+    background: white;
+}
+#main .expr .item:after {
+	position: absolute;
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+    background: #00BCD4;
+    top: 6px;
+    left: -6px;
+    z-index: 20;
+}
+#main .expr .name {
+	line-height: 1.5;
+	margin-top: 0;
+	color: #007888;
+}
+#main .expr .item li {
+	display: inline-block;
+	margin-right: 10px;
+}
+#main .expr .item .btn {
+	display: inline-block;
+	font-size: 12px;
+	border: 1px solid #00BCD4;
+	border-radius: 2px;
+	padding: 1px;
+	color: #00BCD4;
+}
+#main .expr .item .desp {
+	line-height: 1.5;
+	color: #666;
 }
