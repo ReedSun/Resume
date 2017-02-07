@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10297,28 +10297,15 @@ return jQuery;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(2);
-new GoWhere($(".nav-list>li").eq(0), $(".basic"));
-new GoWhere($(".nav-list>li").eq(1), $(".expr"));
-new GoWhere($(".nav-list>li").eq(2), $(".skill"));
-new GoWhere($(".nav-list>li").eq(3), $(".contact"));
-var GoTop =__webpack_require__(3);
-new GoTop();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function($) {function GoWhere($from, $to, speed){
 	this.$from = $from;
 	this.$to = $to;
-	this.speed = speed || 50;
+	this.speed = speed || 30;
 	this.bind();
 }
 GoWhere.prototype.bind = function(){
 	var _this = this;
-	var end = this.$to.offset().top;
+	var end = this.$to.offset().top-100;
 	
 	this.$from.on("click", function(){
 		var clock = setInterval(function(){
@@ -10354,10 +10341,11 @@ module.exports = GoWhere;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(1);
+var fadeInAndOut = __webpack_require__(5)
 function GoTop($parent){
 	this.ct = $parent || $("body");
 	this.target = $('<div class="go-top">回到顶部</div>');
@@ -10367,27 +10355,129 @@ function GoTop($parent){
 GoTop.prototype.bindEvent = function(){
 	var $cur = this.target;
 	var _this = this;
-	var clockForTimeout;
-	$(window).on("scroll", function(){
-		if (clockForTimeout) {
-			clearTimeout(clockForTimeout)
-		}
-		clockForTimeout = setTimeout(function(){
-			if($(window).scrollTop()>600){
-				$cur.fadeIn("normal", function(){})
-			}
-			if($(window).scrollTop()<600){
-				$cur.fadeOut("normal", function(){})
-			}
-		}, 200)
-
-	})
+	fadeInAndOut($cur, 300)
 	new GoWhere($cur, $("body"));
 }
 GoTop.prototype.createNode = function(){
 	this.ct.append(this.target);
 }
 module.exports = GoTop;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {function Stick($node){
+	this.$cur = $node;
+	this.$curH = $node.height();
+	this.$curW = $node.width();
+	this.offsetTop = $node.offset().top,
+	this.offsetLeft = $node.offset().left,
+	this.isFixed = false;
+	this.clone();
+	this.bind();
+}
+Stick.prototype.clone = function(){
+	this.$curClone = this.$cur.clone()
+						      .css({visibility: "hidden",display: "none"})
+							  .insertBefore(this.$cur);
+}
+Stick.prototype.bind = function(){
+	var _this = this
+	$(window).on("scroll", function(){
+		var winScroll = $(window).scrollTop();
+		if(_this.offsetTop < winScroll){
+			if(!_this.isFixed){
+				_this.setFixed();
+			}
+		}else{
+			if(_this.isFixed){
+				_this.unsetFixed();
+			}
+		}
+		_this.checkActive();
+	});
+}
+Stick.prototype.setFixed = function(){
+	var a = this.$curW;
+	this.$cur.css({
+		"position" : "fixed",
+		"top" : 0,
+		"left" : this.offsetLeft,
+		"width" : a,
+		"z-index" : 100,
+		"margin" : 0
+	}),
+	this.$curClone.show();
+	this.isFixed = true;
+}
+Stick.prototype.unsetFixed = function unsetFixed(){
+	this.$cur.removeAttr("style");
+	this.$curClone.hide();
+	this.isFixed = false;
+}
+Stick.prototype.checkActive = function(){
+	var top = $(window).scrollTop()
+	$(".btn-nav").removeClass("active")
+	if (top>=660 && top<971) {
+		$(".btn-basic").addClass("active");
+	}
+	if (top>971 && top<1839) {
+		$(".btn-expr").addClass("active");
+	}
+	if (top>1839 && top<2566) {
+		$(".btn-skill").addClass("active");
+	}
+	if (top>2566) {
+		$(".btn-contact").addClass("active");
+	}
+}
+module.exports = Stick;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(1);
+var GoTop = __webpack_require__(2);
+var Stick = __webpack_require__(3);
+var fadeInAndOut = __webpack_require__(5)
+
+new GoWhere($(".btn-basic"), $(".basic"));
+new GoWhere($(".btn-expr"), $(".expr"));
+new GoWhere($(".btn-skill"), $(".skill"));
+new GoWhere($(".btn-contact"), $(".contact"));
+new GoTop();
+new Stick($(".page-nav"));
+fadeInAndOut($("#aside"), 600);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {function fadeInAndOut($cur, lineNum){
+	// #node,操作的元素
+	// line,超过此高度展示，低于此高度隐藏
+	var clockForTimeout;
+	$(window).on("scroll", function(){
+		if (clockForTimeout) {
+			clearTimeout(clockForTimeout)
+		}
+		clockForTimeout = setTimeout(function(){
+			if($(window).scrollTop()>lineNum){
+				$cur.fadeIn("normal", function(){})
+			}
+			if($(window).scrollTop()<lineNum){
+				$cur.fadeOut("normal", function(){})
+			}
+		}, 200)
+
+	})
+}
+module.exports = fadeInAndOut; 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })

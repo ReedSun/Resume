@@ -280,3 +280,24 @@ body {
 	color: white;
 	display: none;
 }
+.active {
+	color: white !important;
+}
+#aside {
+	display: none;
+	position: fixed;
+	right: 0;
+	top: 40%;
+}
+#aside li {
+	background: #00a5bb;
+	border-radius: 10px 0 0 10px;
+	margin-bottom: 10px;
+}
+#aside a {
+	display: inline-block;
+	line-height: 38px;
+	color: white;
+	padding: 0 20px;
+
+}

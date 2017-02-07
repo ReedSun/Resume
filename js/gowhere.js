@@ -1,12 +1,12 @@
 function GoWhere($from, $to, speed){
 	this.$from = $from;
 	this.$to = $to;
-	this.speed = speed || 50;
+	this.speed = speed || 30;
 	this.bind();
 }
 GoWhere.prototype.bind = function(){
 	var _this = this;
-	var end = this.$to.offset().top;
+	var end = this.$to.offset().top-100;
 	
 	this.$from.on("click", function(){
 		var clock = setInterval(function(){
