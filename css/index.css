@@ -2,6 +2,8 @@
 	margin: 0;
 	padding: 0;
 	text-decoration: none;
+}
+li {
 	list-style: none;
 }
 .clear:after {
@@ -193,8 +195,24 @@ body {
 	padding: 1px;
 	color: #00BCD4;
 }
+#main .expr .item .btn:hover {
+	color: #007888;
+	border: 1px solid #007888;
+}
 #main .expr .item .desp {
 	line-height: 1.5;
+	font-size: 14px;
+}
+#main .expr .item .desp ul {
+	list-style-type: disc;
+	padding-left: 20px;
+}
+#main .expr .item .desp ul>li {
+	list-style-type: disc;
+	display: list-item;
+}
+#main .expr .item .desp .btn {
+	border: none;
 }
 #main .skill .item {
 	float: left;
