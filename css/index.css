@@ -259,7 +259,7 @@ body {
 	font-size: 16px;
 	text-align: left;
 }
-#main .contact .intr img {
+#main .contact .pretty {
 	width: 120px;
 	height: 120px;
 	position: absolute;
@@ -283,6 +283,21 @@ body {
 #main .contact .intr ul span:hover,
 #main .contact .intr a:hover {
 	text-decoration: underline;
+}
+#main .contact span {
+	position: relative;
+}
+#main .contact .QR {
+	display: none;
+	position: absolute;
+	width: 300px;
+	height: 400px;
+	top: -400px;
+	left: -150px;
+}
+#main .contact .wx {
+	height: 300px;
+	top: -300px;
 }
 #footer {
 	text-align: center;

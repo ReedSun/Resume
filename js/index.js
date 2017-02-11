@@ -10,3 +10,12 @@ new GoWhere($(".btn-contact"), $(".contact"));
 new GoTop();
 new Stick($(".page-nav"));
 fadeInAndOut($("#aside"), 600);
+
+$(".contact-way>span").each(function(){
+	$(this).on("mouseenter", function(){
+	$(this).find(".QR").show();
+})
+	$(this).on("mouseleave", function(){
+	$(this).find(".QR").hide();
+})
+})
