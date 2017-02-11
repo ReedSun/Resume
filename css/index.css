@@ -86,12 +86,21 @@ body {
 #header .intr .title {
 	font-size: 28px;
 	font-weight: 200;
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 #header .intr .content {
 	display: inline-block;
-	width: 800px;
+	width: 620px;
 	line-height: 1.5;
+	text-align: center;
+}
+#header .intr .content-desp>span {
+	display: inline-block;
+	margin-top: 15px;
+	font-size: 20px;
+}
+#header .intr .content-desp>p {
+	font-size: 14px;
 }
 #header .contact-info {
 	padding: 30px 0;
