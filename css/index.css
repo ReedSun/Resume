@@ -343,3 +343,24 @@ body {
 	padding: 0 20px;
 
 }
+.dw-type {
+	display: none;
+	background: white;
+	top: 200px;
+	position: absolute;
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.14);
+    border-radius: 2px;
+    z-index: 5;
+}
+.dw-type a {
+	display: inline-block;
+	margin: 10px;
+	color: #00BCD4 !important;
+}
+.dw-1 {
+	right: 15px;
+	top: 60px;
+}
+.dw-active {
+	display: block;
+}

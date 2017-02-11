@@ -13,9 +13,15 @@ fadeInAndOut($("#aside"), 600);
 
 $(".contact-way>span").each(function(){
 	$(this).on("mouseenter", function(){
-	$(this).find(".QR").show();
-})
+		$(this).find(".QR").show();
+	})
 	$(this).on("mouseleave", function(){
-	$(this).find(".QR").hide();
+		$(this).find(".QR").hide();
+	})
 })
+$(".dw-btn").each(function(){
+	$(this).on("click", function(){
+		console.log($(this).parent())
+		$(this).parent().next(".dw-type").toggleClass("dw-active");
+	})
 })
