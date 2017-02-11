@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10297,6 +10297,32 @@ return jQuery;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function($) {function fadeInAndOut($cur, lineNum){
+	// #node,操作的元素
+	// line,超过此高度展示，低于此高度隐藏
+	var clockForTimeout;
+	$(window).on("scroll", function(){
+		if (clockForTimeout) {
+			clearTimeout(clockForTimeout)
+		}
+		clockForTimeout = setTimeout(function(){
+			if($(window).scrollTop()>lineNum){
+				$cur.fadeIn("normal", function(){})
+			}
+			if($(window).scrollTop()<lineNum){
+				$cur.fadeOut("normal", function(){})
+			}
+		}, 200)
+
+	})
+}
+module.exports = fadeInAndOut; 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function($) {function GoWhere($from, $to, speed){
 	this.$from = $from;
 	this.$to = $to;
@@ -10341,11 +10367,11 @@ module.exports = GoWhere;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(1);
-var fadeInAndOut = __webpack_require__(5)
+/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(2);
+var fadeInAndOut = __webpack_require__(1)
 function GoTop($parent){
 	this.ct = $parent || $("body");
 	this.target = $('<div class="go-top">回到顶部</div>');
@@ -10365,18 +10391,22 @@ module.exports = GoTop;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {function Stick($node){
 	this.$cur = $node;
-	this.$curH = $node.height();
-	this.$curW = $node.width();
-	this.offsetTop = $node.offset().top,
-	this.offsetLeft = $node.offset().left,
 	this.isFixed = false;
+	this.init();
 	this.clone();
 	this.bind();
+	this.resize();
+}
+Stick.prototype.init = function(){
+	this.$curH = this.$cur.height();
+	this.$curW = this.$cur.width();
+	this.offsetTop = this.$cur.offset().top;
+	this.offsetLeft = this.$cur.offset().left;
 }
 Stick.prototype.clone = function(){
 	this.$curClone = this.$cur.clone()
@@ -10385,19 +10415,23 @@ Stick.prototype.clone = function(){
 }
 Stick.prototype.bind = function(){
 	var _this = this
+	this.check();
 	$(window).on("scroll", function(){
-		var winScroll = $(window).scrollTop();
-		if(_this.offsetTop < winScroll){
-			if(!_this.isFixed){
-				_this.setFixed();
-			}
-		}else{
-			if(_this.isFixed){
-				_this.unsetFixed();
-			}
-		}
+		_this.check();
 		_this.checkActive();
 	});
+}
+Stick.prototype.check = function(){
+	var winScroll = $(window).scrollTop();
+	if(this.offsetTop < winScroll){
+		if(!this.isFixed){
+			this.setFixed();
+		}
+	}else{
+		if(this.isFixed){
+			this.unsetFixed();
+		}
+	}	
 }
 Stick.prototype.setFixed = function(){
 	var a = this.$curW;
@@ -10408,7 +10442,7 @@ Stick.prototype.setFixed = function(){
 		"width" : a,
 		"z-index" : 100,
 		"margin" : 0
-	}),
+	});
 	this.$curClone.show();
 	this.isFixed = true;
 }
@@ -10419,31 +10453,49 @@ Stick.prototype.unsetFixed = function unsetFixed(){
 }
 Stick.prototype.checkActive = function(){
 	var top = $(window).scrollTop()
+	var basicStart = $(".basic").offset().top-200;
+	var exprStart = $(".expr").offset().top-200;
+	var skillStart = $(".skill").offset().top-200;
+	var contactStart = $(".contact").offset().top-200;
 	$(".btn-nav").removeClass("active")
-	if (top>=660 && top<971) {
+	if (top>=basicStart && top<exprStart) {
 		$(".btn-basic").addClass("active");
 	}
-	if (top>971 && top<1839) {
+	if (top>exprStart && top<skillStart) {
 		$(".btn-expr").addClass("active");
 	}
-	if (top>1839 && top<2566) {
+	if (top>skillStart && top<contactStart) {
 		$(".btn-skill").addClass("active");
 	}
-	if (top>2566) {
+	if (top>contactStart) {
 		$(".btn-contact").addClass("active");
 	}
+}
+Stick.prototype.resize = function(){
+	var _this = this;
+	console.log(this.$curClone)
+	console.log(this.$cur)
+	$(window).on("resize", function(){
+		_this.$curClone.remove()
+		_this.$cur.removeAttr("style");
+		_this.isFixed = false;
+		_this.init();
+		_this.clone();
+		_this.bind();
+	})
+
 }
 module.exports = Stick;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(1);
-var GoTop = __webpack_require__(2);
-var Stick = __webpack_require__(3);
-var fadeInAndOut = __webpack_require__(5)
+/* WEBPACK VAR INJECTION */(function($) {var GoWhere = __webpack_require__(2);
+var GoTop = __webpack_require__(3);
+var Stick = __webpack_require__(4);
+var fadeInAndOut = __webpack_require__(1)
 
 new GoWhere($(".btn-basic"), $(".basic"));
 new GoWhere($(".btn-expr"), $(".expr"));
@@ -10452,32 +10504,6 @@ new GoWhere($(".btn-contact"), $(".contact"));
 new GoTop();
 new Stick($(".page-nav"));
 fadeInAndOut($("#aside"), 600);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {function fadeInAndOut($cur, lineNum){
-	// #node,操作的元素
-	// line,超过此高度展示，低于此高度隐藏
-	var clockForTimeout;
-	$(window).on("scroll", function(){
-		if (clockForTimeout) {
-			clearTimeout(clockForTimeout)
-		}
-		clockForTimeout = setTimeout(function(){
-			if($(window).scrollTop()>lineNum){
-				$cur.fadeIn("normal", function(){})
-			}
-			if($(window).scrollTop()<lineNum){
-				$cur.fadeOut("normal", function(){})
-			}
-		}, 200)
-
-	})
-}
-module.exports = fadeInAndOut; 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
