@@ -10473,8 +10473,6 @@ Stick.prototype.checkActive = function(){
 }
 Stick.prototype.resize = function(){
 	var _this = this;
-	console.log(this.$curClone)
-	console.log(this.$cur)
 	$(window).on("resize", function(){
 		_this.$curClone.remove()
 		_this.$cur.removeAttr("style");
