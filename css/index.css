@@ -125,6 +125,10 @@ body {
 #header .intr .content-desp:hover p {
 	display: block;
 }
+#header .intr .pdf-tit {
+	margin-top: 10px;
+	
+}
 #header .contact-info {
 	padding: 30px 0;
 	background: #008fa1
