@@ -246,6 +246,10 @@ body {
 #main .expr .item .desp .btn {
 	border: none;
 }
+#main .expr .item .desp .code {
+	padding: 0 5px;
+	background: rgba(0,0,0,0.2);
+}
 #main .skill .item {
 	float: left;
 	width: 33%
